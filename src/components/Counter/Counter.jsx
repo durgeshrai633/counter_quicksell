@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
-import CounterValue from "../CounterValue";
+import CounterValue from "../Counter_value/CounterValue";
 import "./Counter.css";
 import { GET_URL, PUT_URL } from "../../api/API_URL";
 import Loader from "../Loader/Loader";
+
+const MAX_VALUA = process.env.REACT_APP_MAX_VALUE || 1000;
 
 function Counter() {
   // state for the counter
@@ -14,23 +16,26 @@ function Counter() {
   // api "PUT" request call when user changes the counter
   const updateCounterApi = (counter) => {
     // set loading state to true
-    setLoading(true);
-    fetch(PUT_URL, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ durgesh: counter }),
-    }).then((res) => {
-      console.log(res)
-      if (res.status === 200) {
-        // get the latest counter value
-        getCounterApi();
+    if (counter <= MAX_VALUA) {
+      setLoading(true);
+      fetch(PUT_URL, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ durgesh: counter }),
+      }).then((res) => {
+        if (res.status === 200) {
+          // get the latest counter value
+          getCounterApi();
 
-        // set the loading state to false
-        setLoading(false);
-      }
-    });
+          // set the loading state to false
+          setLoading(false);
+        }
+      });
+    } else {
+      alert("You reached at maximum point");
+    }
   };
 
   // handler for the button click
@@ -58,7 +63,6 @@ function Counter() {
       {/* loader component */}
       <Loader visibility={loading}></Loader>
       <div className='flex'>
-
         {/* decreament button */}
         <button
           className='flex-item'
@@ -67,7 +71,6 @@ function Counter() {
         >
           <span>-</span>
         </button>
-
 
         {/* input field for the counter */}
         <input

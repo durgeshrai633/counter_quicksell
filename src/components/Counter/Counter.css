@@ -6,7 +6,9 @@
   justify-content: center;
   align-items: center;
   gap: 10px;
+  padding: 5px 0px;
   border: 1px solid #ddd;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 
 .flex {
@@ -30,12 +32,14 @@
   color: #b24242;
   border: 1px solid #b24242;
   text-align: center;
+  box-sizing: border-box;
 }
 #decrease {
   background-color: #ffffff;
   border-radius: 8px 0 0 8px;
   justify-self: left;
   border-right: none;
+  color: #b24242;
 }
 .update_span {
   display: flex;
